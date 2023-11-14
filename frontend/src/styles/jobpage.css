@@ -1,0 +1,459 @@
+/* Add this CSS to your existing styles or create a new stylesheet */
+
+/* Assuming you have a wrapper for the JobForm and JobDetails components */
+.page-wrapper {
+    display: flex;
+  }
+  
+
+  /* Style for JobForm component */
+  .job-form {
+    width: 80%;
+    max-width: 450px;
+    background: #fff;
+    border-radius: 8px;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for JobDetails component */
+  .job-details {
+    flex: 1; /* Take remaining space */
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Add this CSS to your existing styles or create a new stylesheet */
+.homedetails {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px; /* Adjust the gap as needed */
+  }
+  
+  .job-details {
+    background: #fff;
+    border-radius: 4px;
+    padding: 50px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    width: 50vh;
+    margin-top: 10vh;
+  }
+  
+  .job-details h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: green; /* Use your primary color variable */
+  }
+  
+  .job-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .job-details span {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    background: #f1f1f1;
+    padding: 6px;
+    border-radius: 50%;
+    color: #333;
+  }
+  
+  /* Adjust any other specific styles as needed */
+  
+  
+  /* Import Google Font */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+  
+  /* Global Styles */
+  :root {
+    --primary: #1aac83;
+    --error: #e7195a;
+  }
+  
+  body {
+    background: #f1f1f1;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Form Container */
+  .contained {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 140vh;
+    width: 60vh;
+    margin-top: 5%;
+  }
+  
+  /* Job Form Styles */
+  .job-form {
+    width: 80%;
+    max-width: 450px;
+    background: #fff;
+    border-radius: 8px;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .job-form h1 {
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+  
+  /* Form Groups */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Label Styles */
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  /* Input Styles */
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 20px; /* Adjusted margin for better spacing */
+  }
+  
+  /* Submit Button Styles */
+  .submit-button {
+    background: var(--primary);
+    border: 0;
+    color: #fff;
+    padding: 12px;
+    font-family: "Poppins", sans-serif;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Error Message Styles */
+  .error {
+    padding: 10px;
+    background: #ffefef;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 4px;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  
+  /* Adjust any other specific styles as needed */
+  /* jobpage.css */
+
+/* Style for the table */
+h2 {
+    font-size: 50%;
+    font-weight: 1000;
+    color: green;
+    text-align: center;
+    margin-top: 3%;
+    margin-bottom: 3%;
+ }
+
+
+table {
+    width: 98%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style for the buttons */
+  button {
+    margin-right: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Add this CSS to your existing styles or create a new stylesheet */
+
+/* Assuming you have a wrapper for the InternshipDetails component */
+.homedetails {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px; /* Adjust the gap as needed */
+}
+
+/* Style for InternshipDetails component */
+.internship-details {
+  background: #fff;
+  border-radius: 4px;
+  padding: 50px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  width: 50vh;
+  margin-top: 10vh;
+}
+
+.internship-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: green; /* Use your primary color variable */
+}
+
+.internship-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.internship-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+
+/* Style for the table */
+h2 {
+  font-size: large;
+  font-weight: 600;
+  color: green;
+  text-align: center;
+  margin-top: 3%;
+}
+
+table {
+  width: 98%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Style for the buttons */
+button {
+  margin-right: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+
+/* Global Styles */
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+
+body {
+  background: #f1f1f1;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.intern-form {
+  width: 80%;
+  max-width: 450px;
+  background: #fff;
+  border-radius: 8px;
+  margin-top: -62px;
+  padding-top: -12px;
+  margin: 40px;
+  padding: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.intern-form h1 {
+  font-size: 24px;
+  color: green;
+  margin-bottom: 20px;
+}
+
+
+/* Style for the wrapper */
+.homedetailsofstudent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* Style for individual internship details */
+.internship-detailsofstudents {
+  background: rgb(139, 185, 69);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.internship-detailsofstudents h4 {
+  font-size: 2.5em;
+  color: #390a95; /* Adjust the color as needed */
+  margin-bottom: 10px;
+}
+
+/* Style for the section of all internships */
+.all-internshipsofstudents {
+  width: 45%;
+  margin-left: 5px;
+}
+
+/* Style for individual internship cards */
+.internship-cardofstudents {
+  margin-top: 25px;
+  background: #fff;
+  border-radius: 8px;
+  border: 0.2rem solid black;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.internship-cardofstudents h3 {
+  font-size: 1.8em;
+  color: rgb(200, 7, 13); /* Adjust the color as needed */
+  margin-bottom: 16px;
+}
+
+.internship-cardofstudents p {
+  font-size: 1.5em;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+/* Style for the Apply Now button */
+.apply-button {
+  display: inline-block;
+  background-color: #2218a7; /* Adjust the color as needed */
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #1a3091; /* Adjust the hover color as needed */
+}
+
+
+/* Style for the wrapper */
+.homedetailsofjobs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* Style for individual job details */
+.job-detailsofstudents {
+  background: rgb(139, 185, 69);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;;
+}
+
+.job-detailsofstudents h4 {
+  font-size: 2.5em;
+  color: #390a95; /* Adjust the color as needed */
+  margin-bottom: 10px;
+}
+
+/* Style for the section of all jobs */
+.all-jobsofstudents {
+  width: 45%;
+  margin-left: 5px;
+}
+
+/* Style for individual job cards */
+.job-cardofstudents {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.job-cardofstudents h3 {
+  font-size: 1.8em;
+  color: rgb(200, 7, 13); /* Adjust the color as needed */
+  margin-bottom: 16px;
+}
+
+.job-cardofstudents p {
+  font-size: 1.5em;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.apply-button1 {
+  display: inline-block;
+  background-color: #2218a7; /* Adjust the color as needed */
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button1:hover {
+  background-color: #1a3091; /* Adjust the hover color as needed */
+}

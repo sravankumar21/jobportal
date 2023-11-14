@@ -1,0 +1,100 @@
+* {    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #E8EDF2;
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid black;
+    max-width: 450px;
+}
+
+image img {
+    width: 30%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+
+
+div.container div.image img {
+    width: 30%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+h3 {
+    font-size: 3.5rem;
+    color: green;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0rem;
+  }
+
+
+.heading {
+    padding: 20px;
+    color: #1c1c1e;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 1px;
+    text-align: center;
+}
+
+.input {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    width: 100%; /* Fill the width of the container */
+    border: 2px solid #1c1c1e;
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 12px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #4a4a4a;
+}
+
+input[type="text"] {
+    width: 48%; /* Adjusted width to create side-by-side placeholders */
+}
+
+input[type="password"] {
+    width: 48%; /* Adjusted width to create side-by-side placeholders */
+} 
+
+.submit {
+        background-color: rgb(251, 249, 249);
+        border: 0.2rem solid black;
+        outline: none;
+        border-radius: 5px;
+        font-size: 10px;
+        padding: 12px 20px;
+        font-weight: 400;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+}
