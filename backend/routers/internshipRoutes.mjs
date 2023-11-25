@@ -23,7 +23,10 @@ router.route('/add-internship').post(postInternship);
 // Update an internship by ID
 router.route('/update-internship/:id').patch(updateInternship);
 
+// ...
 // Delete an internship by ID
-router.route('/delete-internship/:id').delete(deleteInternship);
+router.route('/:id').delete(deleteInternship);
+// ...
+
 
 export default router;

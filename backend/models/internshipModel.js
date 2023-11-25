@@ -28,7 +28,7 @@ const internshipSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    skillsRequired: [
+    branchesEligible: [
       {
         type: String,
         required: true,

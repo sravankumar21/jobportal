@@ -1,18 +1,41 @@
+// roleModel.js
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
-const adminSchema = new mongoose.Schema({
-  username: {
+const RoleSchema = new mongoose.Schema({
+  email: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
     required: true,
   },
-  // Include other admin data fields here
+  role: {
+    type: String,
+    required: true,
+    enum: ['admin', 'student'],
+  },
 });
 
-const Admin = mongoose.model('Admin', adminSchema);
+RoleSchema.pre('save', function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
 
-export default Admin;
+  bcrypt.hash(this.password, 10, (err, hashedPassword) => {
+    if (err) return next(err);
+    this.password = hashedPassword;
+    return next();
+  });
+});
+
+RoleSchema.methods.comparePassword = function (password, cb) {
+  bcrypt.compare(password, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    if (!isMatch) return cb(null, false);
+    return cb(null, this);
+  });
+};
+
+export default mongoose.model('Role', RoleSchema);

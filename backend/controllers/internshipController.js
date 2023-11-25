@@ -1,9 +1,6 @@
-// backend/controllers/internshipController.mjs
-
 import asyncHandler from 'express-async-handler';
 import Internship from '../models/internshipModel.js';
 
-// Get all internships
 export const getAllInternships = asyncHandler(async (req, res) => {
   try {
     const internships = await Internship.find();
@@ -13,7 +10,6 @@ export const getAllInternships = asyncHandler(async (req, res) => {
   }
 });
 
-// Post an Internship
 export const postInternship = asyncHandler(async (req, res) => {
   try {
     const {
@@ -23,7 +19,7 @@ export const postInternship = asyncHandler(async (req, res) => {
       companyName,
       companyURL,
       duration,
-      skillsRequired,
+      branchesEligible,
     } = req.body;
 
     const internship = new Internship({
@@ -33,7 +29,7 @@ export const postInternship = asyncHandler(async (req, res) => {
       companyName,
       companyURL,
       duration,
-      skillsRequired,
+      branchesEligible,
     });
 
     const savedInternship = await internship.save();
@@ -43,9 +39,9 @@ export const postInternship = asyncHandler(async (req, res) => {
   }
 });
 
-// Get Internship by Id
 export const getInternship = asyncHandler(async (req, res) => {
   try {
+    console.log('Received Internship ID:', req.params.id);
     const internship = await Internship.findById(req.params.id);
 
     if (!internship) {
@@ -59,27 +55,34 @@ export const getInternship = asyncHandler(async (req, res) => {
   }
 });
 
-// Update Internship by Id
+// ... (your other imports and code)
+
 export const updateInternship = asyncHandler(async (req, res) => {
   try {
+    const { id } = req.params;
+    console.log('Received Internship ID for update:', id);
+
     const updatedInternship = await Internship.findByIdAndUpdate(
-      req.params.id,
+      id,
       req.body,
       { new: true }
     );
 
     if (!updatedInternship) {
+      console.log('No internship found with ID:', id);
       res.status(404);
       throw new Error('No internship with this Id');
     }
 
+    console.log('Internship updated successfully:', updatedInternship);
     res.status(200).json(updatedInternship);
   } catch (error) {
+    console.error('Error updating internship:', error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
-// Delete Internship by Id
+
 export const deleteInternship = asyncHandler(async (req, res) => {
   try {
     const deletedInternship = await Internship.findByIdAndDelete(req.params.id);

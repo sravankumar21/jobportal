@@ -1,53 +1,94 @@
 // InternshipForm.js
-import React, { useState } from 'react';
-import '../styles/jobpage.css'; // Import the CSS file
+import React, { useState, useEffect } from 'react';
+import { useInternshipContext } from '../hooks/InternshipContext'; // Update the path
 
 const InternshipForm = () => {
-  const [internshipTitle, setInternshipTitle] = useState('');
-  const [internshipType, setInternshipType] = useState('');
-  const [internshipDescription, setInternshipDescription] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [companyURL, setCompanyURL] = useState('');
-  const [duration, setDuration] = useState('');
-  const [skillsRequired, setSkillsRequired] = useState([]);
+  const { setAllInternships, internship, isEditing, setIsEditing } = useInternshipContext();
+  const [formData, setFormData] = useState({
+    internshipTitle: '',
+    internshipType: '',
+    internshipDescription: '',
+    companyName: '',
+    companyURL: '',
+    duration: '',
+    branchesEligible: '',
+  });
+
+  useEffect(() => {
+    if (isEditing) {
+      setFormData({
+        internshipTitle: internship.internshipTitle,
+        internshipType: internship.internshipType,
+        internshipDescription: internship.internshipDescription,
+        companyName: internship.companyName,
+        companyURL: internship.companyURL,
+        duration: internship.duration,
+        branchesEligible: internship.branchesEligible.join(', '),
+      });
+    }
+  }, [isEditing, internship]);
 
   const handleSkillsChange = (e) => {
-    // Convert the selected skills to an array
-    const selectedSkills = Array.from(e.target.selectedOptions, (option) => option.value);
-    setSkillsRequired(selectedSkills);
+    const branchesEligible = Array.from(e.target.selectedOptions, (option) => option.value);
+    setFormData({ ...formData, branchesEligible: branchesEligible.join(', ') });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prepare the internship data
     const internshipData = {
-      internshipTitle,
-      internshipType,
-      internshipDescription,
-      companyName,
-      companyURL,
-      duration,
-      skillsRequired,
+      internshipTitle: formData.internshipTitle,
+      internshipType: formData.internshipType,
+      internshipDescription: formData.internshipDescription,
+      companyName: formData.companyName,
+      companyURL: formData.companyURL,
+      duration: formData.duration,
+      branchesEligible: formData.branchesEligible.split(',').map((branch) => branch.trim()),
     };
 
-    // Send a POST request to your backend API to add the internship
     try {
-      const response = await fetch('http://localhost:4444/internships/add-internship', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(internshipData),
-      });
-
-      if (response.status === 201) {
-        // Internship added successfully
-        // You can redirect or show a success message here
-        console.log('Internship added successfully');
+      let response;
+      if (isEditing) {
+        response = await fetch(`http://localhost:4444/internships/update-internship/${internship._id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(internshipData),
+        });
       } else {
-        // Handle errors here
-        console.error('Failed to add internship');
+        response = await fetch('http://localhost:4444/internships/add-internship', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(internshipData),
+        });
+      }
+
+      if (response.ok) {
+        const allInternshipsResponse = await fetch('http://localhost:4444/internships');
+        if (allInternshipsResponse.ok) {
+          const data = await allInternshipsResponse.json();
+          setAllInternships(data.internships);
+        } else {
+          console.error('Failed to fetch all internships');
+        }
+
+        setFormData({
+          internshipTitle: '',
+          internshipType: '',
+          internshipDescription: '',
+          companyName: '',
+          companyURL: '',
+          duration: '',
+          branchesEligible: '',
+        });
+        setIsEditing(false);
+
+        console.log('Internship added or updated successfully');
+      } else {
+        console.error('Failed to add or update internship');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -57,14 +98,14 @@ const InternshipForm = () => {
   return (
     <div className="contained">
       <div className="intern-form">
-        <h1>Add a New Internship</h1>
+        <h1>{isEditing ? 'Update Internship' : 'Add a New Internship'}</h1>
         <form className="create" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Internship Title:</label>
             <input
               type="text"
-              value={internshipTitle}
-              onChange={(e) => setInternshipTitle(e.target.value)}
+              value={formData.internshipTitle}
+              onChange={(e) => setFormData({ ...formData, internshipTitle: e.target.value })}
             />
           </div>
 
@@ -72,16 +113,16 @@ const InternshipForm = () => {
             <label>Internship Type:</label>
             <input
               type="text"
-              value={internshipType}
-              onChange={(e) => setInternshipType(e.target.value)}
+              value={formData.internshipType}
+              onChange={(e) => setFormData({ ...formData, internshipType: e.target.value })}
             />
           </div>
 
           <div className="form-group">
             <label>Internship Description:</label>
             <textarea
-              value={internshipDescription}
-              onChange={(e) => setInternshipDescription(e.target.value)}
+              value={formData.internshipDescription}
+              onChange={(e) => setFormData({ ...formData, internshipDescription: e.target.value })}
             ></textarea>
           </div>
 
@@ -89,8 +130,8 @@ const InternshipForm = () => {
             <label>Company Name:</label>
             <input
               type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
+              value={formData.companyName}
+              onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
             />
           </div>
 
@@ -98,8 +139,8 @@ const InternshipForm = () => {
             <label>Company URL:</label>
             <input
               type="text"
-              value={companyURL}
-              onChange={(e) => setCompanyURL(e.target.value)}
+              value={formData.companyURL}
+              onChange={(e) => setFormData({ ...formData, companyURL: e.target.value })}
             />
           </div>
 
@@ -107,24 +148,24 @@ const InternshipForm = () => {
             <label>Duration:</label>
             <input
               type="text"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
+              value={formData.duration}
+              onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
             />
           </div>
 
           <div className="form-group">
-            <label>Skills Required</label>
+            <label>Eligible Branches:</label>
             <input
               type="text"
               className="input-field"
-              value={skillsRequired}
-              onChange={(e) => setSkillsRequired(e.target.value)}
-              placeholder="Separate skills with commas (e.g., HTML, CSS, JavaScript)"
+              value={formData.branchesEligible}
+              onChange={(e) => setFormData({ ...formData, branchesEligible: e.target.value })}
+              placeholder="(e.g., CSE, ECE, AIDS)"
               required
             />
           </div>
 
-          <button>Add Internship</button>
+          <button type="submit">{isEditing ? 'Update Internship' : 'Add Internship'}</button>
         </form>
       </div>
     </div>

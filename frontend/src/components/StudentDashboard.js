@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import '../otherstyles/student.css';
-import student from '../images/student.webp';
 
 const StudentDashboard = () => {
+
   return (
     <div>
       <header className="headers">
@@ -12,11 +12,11 @@ const StudentDashboard = () => {
         </div>
         <div>
           <ul>
-          <li>
-          <a href="#home">Home</a>
+            <li>
+              <a href="#home">Home</a>
             </li>
             <li>
-              <Link to="/student/My-Profile">My Profile</Link>
+              <Link to="/student/roadmap">Roadmaps</Link>
             </li>
             <li>
               <Link to="/student/studentinternpage">View Internships</Link>
@@ -25,7 +25,7 @@ const StudentDashboard = () => {
               <Link to="/student/studentjobpage">View Jobs</Link>
             </li>
             <li>
-              <Link to="/student/logout">Logout</Link>
+              <Link to="/">Logout</Link>
             </li>
           </ul>
         </div>
@@ -34,18 +34,17 @@ const StudentDashboard = () => {
         <div className="wrapper">
           <div className="box">
             <div className="contents">
-              {/* <img src={student} alt="Student pic" /> */}
               <h3>WELCOME STUDENT!</h3>
               <p>
-              "Welcome to the Student Dashboard of Career Opportunities. Explore and plan your academic journey with the CBIT Placement Cell – where your future opportunities take shape."
+                "Welcome to the Student Dashboard of Career Opportunities. Explore and plan your academic journey with the CBIT Placement Cell."
               </p>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 };
-
 
 export default StudentDashboard;

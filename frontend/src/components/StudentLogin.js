@@ -1,38 +1,44 @@
+// Import necessary dependencies
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'; // Import useHistory from React Router
+import { useHistory } from 'react-router-dom';
 import '../otherstyles/admin.css';
 import image from '../images/student.webp';
 
-export default function Student() {
-  const [username, setUsername] = useState('');
+export default function StudentLogin() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const history = useHistory(); // Get the history object
+  const history = useHistory();
+
+  const apiUrl = 'http://localhost:4444';
 
   const handleLogin = async () => {
-    // Make an API request to the server to authenticate the student
     try {
-      const response = await fetch('/api/student/login', {
+      const response = await fetch(`${apiUrl}/admins/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
-
-      if (response.status === 200) {
-        // Authentication successful
-        history.push('/student/dashboard'); // Redirect to the student dashboard
+  
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role.role); // Extract the role from the server response
+        history.push('/student/dashboard');
       } else {
-        // Authentication failed
-        setErrorMessage('Username or password is incorrect');
+        const errorText = await response.text();
+        console.error('Login failed:', errorText);
+        setErrorMessage('Invalid credentials. Please check your username and password.');
       }
     } catch (error) {
-      console.error('Login error:', error);
-      setErrorMessage('An error occurred during login');
+      console.error('Unexpected error during login:', error);
+      setErrorMessage('An unexpected error occurred during login.');
     }
   };
-
+  
+  // Return the JSX structure of the component
   return (
     <div className="container">
       <div className="heading">
@@ -46,9 +52,9 @@ export default function Student() {
         type="text"
         id="username"
         className="input"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
 
       <input

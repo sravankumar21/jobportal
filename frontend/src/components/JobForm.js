@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import '../styles/jobpage.css'; // Import the CSS file
+import { useJobContext } from '../hooks/JobContext'; // Update the path
+import '../styles/jobpage.css';
 
 const JobForm = () => {
+  const { setAllJobs } = useJobContext();
   const [jobTitle, setJobTitle] = useState('');
   const [jobType, setJobType] = useState('');
   const [jobDescription, setJobDescription] = useState('');
@@ -9,12 +11,12 @@ const JobForm = () => {
   const [companyURL, setCompanyURL] = useState('');
   const [workType, setWorkType] = useState('');
   const [payScale, setPayScale] = useState('');
-  const [skills, setSkills] = useState([]);
+  const [branchesEligible, setSkills] = useState([]);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Construct the job object with form input values
+
     const job = {
       jobTitle,
       jobType,
@@ -23,7 +25,7 @@ const JobForm = () => {
       companyURL,
       workType,
       payScale,
-      skills: skills.split(',').map((skill) => skill.trim()),
+      branchesEligible: branchesEligible.split(',').map((branch) => branch.trim()),
     };
 
     try {
@@ -36,11 +38,16 @@ const JobForm = () => {
       });
 
       if (response.status === 201) {
-        // Successfully created the job
-        // You can add any success handling here
+        const allJobsResponse = await fetch('http://localhost:4444/jobs');
+        if (allJobsResponse.ok) {
+          const data = await allJobsResponse.json();
+          setAllJobs(data.jobs);
+        } else {
+          console.error('Failed to fetch all jobs');
+        }
+
         console.log('Job created successfully');
       } else {
-        // Handle errors here
         const data = await response.json();
         setError(data.error);
       }
@@ -51,7 +58,7 @@ const JobForm = () => {
   };
 
   return (
-    <div className="contained">
+    <div className="containedjob">
       <div className="job-form">
         <h1>Add a New Job</h1>
         <form onSubmit={handleSubmit}>
@@ -125,13 +132,13 @@ const JobForm = () => {
             />
           </div>
           <div className="form-group">
-            <label>Skills Required</label>
+            <label>Eligible Branches</label>
             <input
               type="text"
               className="input-field"
-              value={skills}
+              value={branchesEligible}
               onChange={(e) => setSkills(e.target.value)}
-              placeholder="Separate skills with commas (e.g., HTML, CSS, JavaScript)"
+              placeholder="e.g., CSE, ECE, AIDS)"
               required
             />
           </div>

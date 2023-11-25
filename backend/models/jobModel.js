@@ -30,7 +30,7 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    skills: [
+    branchesEligible: [
       {
         type: String,
         required: true,

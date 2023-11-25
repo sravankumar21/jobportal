@@ -3,10 +3,18 @@ import { Link, Route, Switch } from 'react-router-dom';
 import StudentLogin from '../components/StudentLogin.js';
 import AdminLogin from '../components/AdminLogin.js'; 
 import '../styles/index1.css';
+import jsPDF from 'jspdf';
 import tick from '../images/placed.webp';
 import college from '../images/college.jpeg';
+import placementPDF from '../images/Year-Wise-Placements-2022-23.pdf';
 
 const HomePage = () => {
+  const downloadPdf = () => {
+    // Open the PDF file in a new tab/window
+    window.open(placementPDF);
+ 
+  };
+
   return (
     <div>
       <header className="header">
@@ -39,10 +47,8 @@ const HomePage = () => {
   <div className="content">
   <img src={college} alt="College pic 2" />
     <h4>Get Hired!</h4>
-    <p>
-      You are heartly welcome to a world of career opportunities. The Placement Cell of Prestigious Institute CBIT this can elevate your career to new heights!
-    </p>
-    <Link to="/adminlogin" className="btn">
+   
+    <Link to="/adminlogin" className="btnp">
       Post a Job or an Internship
       </Link>
   </div>
@@ -51,6 +57,7 @@ const HomePage = () => {
       </section>
 
       <section className="top-students">
+      
         <div className="wrapper">
           <h2>CONGRATULATIONS TO OUR TOP ACHIEVERS!</h2>
           <div className="student-grid">
@@ -90,9 +97,9 @@ const HomePage = () => {
               <p>Package: 44.5 LPA</p>
             </div>
             <div className="explore-more">
-              <a href="#category" className="btn2">
+            <button onClick={downloadPdf} className="btn2">
                 Explore More
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -160,5 +167,4 @@ const HomePage = () => {
     </div>
   );
 };
-
 export default HomePage;

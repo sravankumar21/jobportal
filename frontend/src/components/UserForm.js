@@ -10,16 +10,20 @@ const UserForm = () => {
     e.preventDefault();
 
     try {
-      const newUser = { username, password };
+      const newUser = {
+        email: username, // Assuming email is used for username
+        password,
+        role: 'student', // Set the role to "student"
+      };
 
       // Make a POST request to your backend to create a new user
-      const response = await axios.post('http://localhost:4444/users/add-student', newUser);
+      const response = await axios.post('http://localhost:4444/admins/register', newUser);
 
       // Handle the response as needed
-      if (response.status === 201) {
-        console.log('User registered successfully.');
+      if (response.status === 200) {
+        console.log('Student added successfully.');
       } else {
-        console.error('User registration failed.');
+        console.error('Student addition failed.');
       }
     } catch (error) {
       console.error('An error occurred:', error);
@@ -42,7 +46,7 @@ const UserForm = () => {
             type="text"
             id="username"
             className="input"
-            placeholder="Username"
+            placeholder="Gmail"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />

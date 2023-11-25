@@ -22,7 +22,7 @@ export const postJob = asyncHandler(async (req, res) => {
       companyURL,
       workType,
       payScale,
-      skills,
+      branchesEligible,
     } = req.body;
 
     let job = new Job({
@@ -33,7 +33,7 @@ export const postJob = asyncHandler(async (req, res) => {
       companyURL,
       workType,
       payScale,
-      skills,
+      branchesEligible,
     });
 
     job = await job.save();

@@ -1,16 +1,25 @@
-// InternshipDetails.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import '../styles/jobpage.css'; // Import the CSS file
+import { useParams, useHistory } from 'react-router-dom';
+import { useInternshipContext } from '../hooks/InternshipContext';
+
 
 const InternshipDetails = () => {
   const { id } = useParams();
-  const [internship, setInternship] = useState(null);
-  const [allInternships, setAllInternships] = useState([]);
+  const { internship, setInternship, allInternships, setAllInternships } = useInternshipContext();
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    internshipTitle: '',
+    internshipType: '',
+    internshipDescription: '',
+    companyName: '',
+    companyURL: '',
+    duration: '',
+    branchesEligible: '',
+  });
+  const history = useHistory();
 
   useEffect(() => {
-    // Fetch all internships from the backend
-    const fetchAllInternships = async () => {
+    const fetchInternships = async () => {
       try {
         const response = await fetch('http://localhost:4444/internships');
         if (response.ok) {
@@ -24,101 +33,129 @@ const InternshipDetails = () => {
       }
     };
 
-    // If an ID is specified, fetch details for that specific internship
+    fetchInternships();
+
     if (id) {
-      const fetchInternshipDetails = async () => {
-        try {
-          const response = await fetch(`http://localhost:4444/internships/${id}`);
-          if (response.ok) {
-            const data = await response.json();
-            setInternship(data.internship);
-          } else {
-            console.error('Failed to fetch internship details');
-          }
-        } catch (error) {
-          console.error('Error fetching internship details:', error.message);
-        }
-      };
-
-      fetchInternshipDetails();
+      const currentInternship = allInternships.find((internship) => internship._id === id);
+      setInternship(currentInternship);
+      setFormData({
+        internshipTitle: currentInternship.internshipTitle,
+        internshipType: currentInternship.internshipType,
+        internshipDescription: currentInternship.internshipDescription,
+        companyName: currentInternship.companyName,
+        companyURL: currentInternship.companyURL,
+        duration: currentInternship.duration,
+        branchesEligible: currentInternship.branchesEligible.join(', '),
+      });
     }
+  }, [id, setInternship, setAllInternships]);
 
-    // Fetch all internships
-    fetchAllInternships();
-  }, [id]);
+  const handleUpdate = async (internshipId) => {
+    try {
+      const response = await fetch(`http://localhost:4444/internships/update-internship/${internshipId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          internshipTitle: formData.internshipTitle,
+          internshipType: formData.internshipType,
+          internshipDescription: formData.internshipDescription,
+          companyName: formData.companyName,
+          companyURL: formData.companyURL,
+          duration: formData.duration,
+          branchesEligible: formData.branchesEligible.split(',').map(branch => branch.trim()),
+        }),
+      });
+
+      if (response.ok) {
+        const updatedInternship = await response.json();
+        setIsEditing(true);
+        history.push('/admin/add-internship');
+        setInternship(updatedInternship);
+      } else {
+        console.error('Failed to update internship:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating internship:', error.message);
+    }
+  };
+
+  const handleDelete = async (internshipId) => {
+    try {
+      const response = await fetch(`http://localhost:4444/internships/${internshipId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setAllInternships((prevInternships) =>
+          prevInternships.filter((internship) => internship._id !== internshipId)
+        );
+        console.log('Internship deleted successfully');
+      } else {
+        console.error('Failed to delete internship');
+      }
+    } catch (error) {
+      console.error('Error deleting internship:', error.message);
+    }
+  };
 
   if (id && !internship) {
     return <div>Loading internship details...</div>;
   }
 
   return (
-    <div className="homedetail">
+    <div className="homedetails">
       {id && (
         <div className="internship-details">
-          <h4>{internship.internshipTitle}</h4>
-          {/* Render other internship details here */}
+          {isEditing ? (
+            <EditableRow
+              editFormData={formData}
+              handleUpdateClick={() => handleUpdate(internship._id)}
+            />
+          ) : (
+            <div>
+              <h4>{internship.internshipTitle}</h4>
+              {/* Render other internship details here */}
+            </div>
+          )}
+          <button onClick={isEditing ? () => handleUpdate(internship._id) : handleEditClick}>
+            {isEditing ? 'Save' : 'Edit'}
+          </button>
         </div>
       )}
 
       <div className="all-internships">
         <h2>All Internships</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Internship Title</th>
-              <th>Internship Type</th>
-              <th>Internship Description</th>
-              <th>Company Name</th>
-              <th>Company URL</th>
-              <th>Duration</th>
-              <th>Skills</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allInternships.map((internship) => (
-              <tr key={internship._id}>
-                <td>{internship.internshipTitle}</td>
-                <td>{internship.internshipType}</td>
-                <td>{internship.internshipDescription}</td>
-                <td>{internship.companyName}</td>
-                <td>{internship.companyURL}</td>
-                <td>{internship.duration}</td>
-                <td>{internship.skillsRequired.join(', ')}</td>
-                <td>
-                  <span
-                    role="img"
-                    aria-label="Update"
-                    style={{
-                      cursor: 'pointer',
-                      marginBottom: '3.5px',
-                      borderRadius: '40%',
-                      backgroundColor: '#e0e0e0',
-                      fontSize: '20px', // Adjust the font size as needed
-                    }}
-                    onClick={() => handleUpdate(internship._id)}
-                  >
-                    ✏️
-                  </span>
-                  <span
-                    role="img"
-                    aria-label="Delete"
-                    style={{
-                      cursor: 'pointer',
-                      marginBottom: '3.5px',
-                      borderRadius: '40%',
-                      backgroundColor: '#e0e0e0',
-                      fontSize: '20px', // Adjust the font size as needed
-                    }}
-                    onClick={() => handleDelete(internship._id)}
-                  >
-                    🗑️
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="internship-cards">
+          {allInternships.map((internship) => (
+            <div key={internship._id} className="internship-card">
+              <h3>{internship.internshipTitle}</h3>
+              <p><strong>Internship Type:</strong> {internship.internshipType}</p>
+              <p><strong>Description:</strong> {internship.internshipDescription}</p>
+              <p><strong>Company:</strong> {internship.companyName}</p>
+              <p><strong>Duration:</strong> {internship.duration}</p>
+              <p><strong>Eligible branches:</strong> {internship.branchesEligible.join(', ')}</p>
+
+              <div className="action-buttons">
+                <span
+                  role="img"
+                  aria-label="Update"
+                  onClick={() => handleUpdate(internship._id)}
+                >
+                  ✏️
+                </span>
+                <span
+                  role="img"
+                  aria-label="Delete"
+                  onClick={() => handleDelete(internship._id)}
+                >
+                  🗑️
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

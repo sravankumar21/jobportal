@@ -1,24 +1,98 @@
-/* styles/index1.css */
+/* resume.css */
 
-.section {
-    background-color: #f0f0f0; /* Background color for the section */
-    padding: 20px; /* Adjust the padding to your preference */
-  }
+.resumesection {
+  background-color: #f4f4f4;
+  padding: 20px;
+  text-align: center;
+}
+
+.resumesection h1{
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: rgb(9, 76, 93);
+  padding-right: 0%;
+  margin-top: 3%;
+  margin-bottom: 5px;
   
-  .container {
-    text-align: center;
-  }
-  
-  .container-center {
-    display:block;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* height: 100vh; This centers content vertically in the viewport */
-  }
-  
-  h1 {
-    font-size: 24px; /* Adjust the font size to your preference */
-    color: #333; /* Text color for the heading */
-  }
-  
+
+}
+
+.resume-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resume-image {
+  margin: 20px;
+}
+
+.resume-image img {
+  width: 100%;
+  max-width: 600px; /* Set a maximum width for the images if needed */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* StudentProfile.css (create a separate CSS file if needed) */
+.profile-container {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.profile-container img {
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.profile-container h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.profile-container p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+/* Add additional styles as needed */
+/* roadmaps.css */
+
+/* roadmaps.css */
+
+.roadmap-section {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0; /* Add your preferred background color */
+}
+
+.roadmap-section h1 {
+  color: #333; /* Add your preferred text color */
+}
+
+.roadmap-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.roadmap-image {
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.roadmap-image img {
+  max-width: 50vh;
+  height: 60vh; /* Maintain aspect ratio */
+  border-radius: 8px; /* Optional: Add border radius for rounded corners */
+}
+

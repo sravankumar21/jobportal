@@ -57,7 +57,7 @@ li a {
 }
 
 section {
-  padding: 3rem 5%;
+  padding: 1.2rem 5%;
 }
 
 .btn {
@@ -136,24 +136,35 @@ section {
 }
 
 
-.home {
+/* .home {
   padding: 0;
   background-color: linear-gradient(#27b43c, #c13333, #161c76);
 }
 
 .home img {
-  width: 100%; /* Adjust the width to fill the container */
-  height: 100%; /* Maintain the aspect ratio */
-
-  /* Center the image horizontally and vertically */
-  display: block;
+  max-width: 100%; /* Ensure the image doesn't exceed the container's width */
+  /* height: auto; /* Allow the height to adjust proportionally */
+  /* display: block;
   margin: 0 auto;
-  text-align: center;
-  display: inline-block;
   border: 0.2rem solid black;
+  color: black; } */
+
+  .home {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+.home img {
+  width: 300%;
+  height: 65vh;
+  display: block;
+  margin-left: -62vh;
+  margin-top: -3vh; /* Adjust this value to control the overlap with the navbar */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle box shadow for a nicer edge */
   color: black;
 }
-
 
 
 .home .box {
@@ -178,12 +189,7 @@ section {
   padding: 1rem 0;
 }
 
-.home .content p {
-  line-height: 2;
-  color: black;
-  font-size: 1.4rem;
-  padding: 1rem 0;
-}
+
 
 body {
   /* background-color: whitesmoke; */
@@ -237,14 +243,32 @@ body {
   color: white;
 }
 
+.btnp {
+  display: inline-block;
+  border: 0.2rem solid black;
+  color: black;
+  cursor: pointer;
+  background: none;
+  font-size: 1.7rem;
+  padding: 1rem 3rem;
+  margin-left: -1.5%;
+}
 
+.btnp:hover {
+  background: black;
+  color: white;
+}
 
 .top-students h2 {
-  font-size: 3.5rem;
+  font-size: 3.2rem  !important ;
+  font-weight: 600;
   color: green;
   text-align: center;
   margin-bottom: 5rem;
 }
+
+
+
 
 .student-grid {
   display: flex;
@@ -259,7 +283,7 @@ body {
   padding: 20px;
   text-align: center;
   font-size: 1.2rem;
-  color: #333;
+  color: #698465;
   margin-bottom: 30px;
 }
 
@@ -281,7 +305,8 @@ body {
 }
 
 .recruiting-companies h2 {
-  font-size: 3rem;
+  font-size: 3.2rem  !important ;
+  font-weight: 600;
   color: green;
   text-align: center;
   margin-bottom: 3rem;
@@ -305,7 +330,7 @@ body {
 }
 
 .company-box:hover {
-  background-color: lightskyblue;
+  background-color: rgb(189, 233, 169);
   cursor: pointer;
 }
 
@@ -314,7 +339,8 @@ body {
 }
 
 .placement-highlights h2 {
-  font-size: 3.5rem;
+  font-size: 3.2rem  !important ;
+  font-weight: 600;
   color: green;
   font-weight: 600;
   text-align: center;
@@ -356,7 +382,8 @@ body {
 }
 
 .footer h3 {
-  font-size: 2rem;
+  font-size: 3.2rem  !important ;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -375,7 +402,7 @@ body {
   .header .navbar {
     position: fixed;
     top: 0;
-    left: -110%;
+    margin-left: -90%;
     background: white;
     z-index: 10000;
     width: 35rem;

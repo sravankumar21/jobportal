@@ -1,50 +1,42 @@
-import React, { useEffect, useState } from 'react';
+// JobDetails.js
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import '../styles/jobpage.css'; // Import the CSS file
+import { useJobContext } from '../hooks/JobContext'; // Update the path
 
 const JobDetails = () => {
   const { id } = useParams();
-  const [job, setJob] = useState(null);
-  const [allJobs, setAllJobs] = useState([]);
+  const { job, setJob, allJobs, setAllJobs } = useJobContext();
 
   useEffect(() => {
-    // Fetch all jobs from the backend
-    const fetchAllJobs = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4444/jobs');
-        if (response.ok) {
-          const data = await response.json();
-          setAllJobs(data.jobs);
+        // Fetch all jobs
+        const allJobsResponse = await fetch('http://localhost:4444/jobs');
+        if (allJobsResponse.ok) {
+          const allJobsData = await allJobsResponse.json();
+          setAllJobs(allJobsData.jobs);
         } else {
           console.error('Failed to fetch all jobs');
         }
-      } catch (error) {
-        console.error('Error fetching all jobs:', error.message);
-      }
-    };
 
-    // If an ID is specified, fetch details for that specific job
-    if (id) {
-      const fetchJobDetails = async () => {
-        try {
-          const response = await fetch(`http://localhost:4444/jobs/${id}`);
-          if (response.ok) {
-            const data = await response.json();
-            setJob(data.job);
+        // If an ID is specified, fetch details for that specific job
+        if (id) {
+          const jobResponse = await fetch(`http://localhost:4444/jobs/${id}`);
+          if (jobResponse.ok) {
+            const jobData = await jobResponse.json();
+            setJob(jobData);
           } else {
             console.error('Failed to fetch job details');
           }
-        } catch (error) {
-          console.error('Error fetching job details:', error.message);
         }
-      };
+      } catch (error) {
+        console.error('Error fetching job data:', error.message);
+      }
+    };
 
-      fetchJobDetails();
-    }
-
-    // Fetch all jobs
-    fetchAllJobs();
-  }, [id]);
+    // Fetch data
+    fetchData();
+  }, [id, setJob, setAllJobs]);
 
   // Function to handle update
   const handleUpdate = async (jobId) => {
@@ -63,19 +55,19 @@ const JobDetails = () => {
     }
   };
 
-  // Function to handle delete
   const handleDelete = async (jobId) => {
     try {
-      // Perform the delete operation for the given job ID
-      const response = await fetch(`http://localhost:4444/jobs/${jobId}`, {
+      const response = await fetch(`http://localhost:4444/jobs/delete-job/${jobId}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        // Handle success, e.g., remove the deleted job from the state
-        setAllJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+        // Handle successful deletion
         console.log('Job deleted successfully');
+        // Optionally, you can update the local state to reflect the deletion
+        setAllJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
       } else {
+        // Handle deletion failure
         console.error('Failed to delete job');
       }
     } catch (error) {
@@ -86,76 +78,47 @@ const JobDetails = () => {
   if (id && !job) {
     return <div>Loading job details...</div>;
   }
+
   return (
-    <div className="homedetail">
+    <div>
       {id && (
-        <div className="job-details">
-          <h4>{job.jobTitle}</h4>
+        <div className="job-details-container">
+          <h4 className="job-title">{job.jobTitle}</h4>
           {/* Render other job details here */}
         </div>
       )}
 
-      <div className="all-jobs">
-        <h2>All Jobs</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Job Title</th>
-              <th>Job Type</th>
-              <th>Job Description</th>
-              <th>Company Name</th>
-              <th>Company URL</th>
-              <th>Work Type</th>
-              <th>Pay Scale</th>
-              <th>Skills</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allJobs.map((job) => (
-              <tr key={job._id}>
-                <td>{job.jobTitle}</td>
-                <td>{job.jobType}</td>
-                <td>{job.jobDescription}</td>
-                <td>{job.companyName}</td>
-                <td>{job.companyURL}</td>
-                <td>{job.workType}</td>
-                <td>{job.payScale}</td>
-                <td>{job.skills.join(', ')}</td>
-                <td>
-                  <span
-                    role="img"
-                    aria-label="Update"
-                    style={{
-                      cursor: 'pointer',
-                      marginBottom: '3.5px',
-                      borderRadius: '40%',
-                      backgroundColor: '#e0e0e0',
-                      fontSize: '20px', // Adjust the font size as needed
-                    }}
-                    onClick={() => handleUpdate(job._id)}
-                  >
-                    ✏️
-                  </span>
-                  <span
-                    role="img"
-                    aria-label="Delete"
-                    style={{
-                      cursor: 'pointer',
-                      marginBottom: '3.5px',
-                      borderRadius: '40%',
-                      backgroundColor: '#e0e0e0',
-                      fontSize: '20px', // Adjust the font size as needed
-                    }}
-                    onClick={() => handleDelete(job._id)}
-                  >
-                    🗑️
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="all-jobs-container">
+        <h2 className="all-jobs-title">All Jobs</h2>
+        <div className="job-cards">
+          {allJobs.map((job) => (
+            <div key={job._id} className="job-card">
+              <h3>{job.jobTitle}</h3>
+              <p><strong>Job Type:</strong> {job.jobType}</p>
+              <p><strong>Description:</strong> {job.jobDescription}</p>
+              <p><strong>Company:</strong> {job.companyName}</p>
+              <p><strong>Work Type:</strong> {job.workType}</p>
+              <p><strong>Pay Scale:</strong> {job.payScale}</p>
+              <p><strong>Eligible branches:</strong> {job.branchesEligible.join(', ')}</p>
+
+              {/* Action buttons */}
+              <div className="action-buttons">
+                <span
+                  className="update-button"
+                  onClick={() => handleUpdate(job._id)}
+                >
+                  ✏️
+                </span>
+                <span
+                  className="delete-button"
+                  onClick={() => handleDelete(job._id)}
+                >
+                  🗑️
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
