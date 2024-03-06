@@ -42,16 +42,16 @@ const AdminDashboard = () => {
               <a href="#home">Home</a>
             </li>
             <li>
-              <Link to="/admin/add-user">Add User</Link>
+              <a href="#contact">Qualifications</a>
             </li>
             <li>
-              <Link to="/admin/internpage">Add Internship</Link>
+            <a href="#contact">About</a>
             </li>
             <li>
-              <Link to="/admin/jobpage">Add Job</Link>
+            <a href="#contact">Contact</a>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/" onClick={handleLogout}>
                 Logout
               </Link>
             </li>
@@ -63,15 +63,46 @@ const AdminDashboard = () => {
           <div className="box">
             <div className="contents">
               {/* <img src={admin} alt="Admin pic" /> */}
-              <h3>WELCOME ADMIN!</h3>
-              <p>
-                "Welcome to the Admin Dashboard of Career Opportunities. Manage and elevate careers with the CBIT Placement Cell."
-              </p>
+              <h2 className="responsive-heading">WELCOME TO ADMIN PAGE</h2>
+
+
+              
+              
+            
+
+          
+          {/* Cards section */}
+          <div className="cards">
+            <div className="card">
+              <h4>Add a New Student</h4>
+              <p>Click below to add a new student.</p>
+              <Link to="/admin/add-user">Add a New Student</Link>
             </div>
+
+            <div className="card">
+              <h4>Add a Job</h4>
+              <p>Click below to add a new job.</p>
+              <Link to="/admin/jobpage">Add New Job</Link>
+            </div>
+
+            <div className="card">
+              <h4>Add an Internship</h4>
+              <p>Click below to add a new internship.</p>
+              <Link to="/admin/internpage">Add New Internship</Link>
+            </div>
+
+            <div className="card">
+              <h4>Skill Development Center</h4>
+              <p>Manage the Skills.</p>
+              <Link to="/admin/skillspage">Add New Skill</Link>
+            </div>
+          </div>
+          </div>
           </div>
         </div>
       </section>
     </div>
+    
   );
 };
 

@@ -4,6 +4,7 @@ import { useInternshipContext } from '../hooks/InternshipContext'; // Update the
 
 const InternshipForm = () => {
   const { setAllInternships, internship, isEditing, setIsEditing } = useInternshipContext();
+  console.log(internship)
   const [formData, setFormData] = useState({
     internshipTitle: '',
     internshipType: '',
@@ -15,7 +16,7 @@ const InternshipForm = () => {
   });
 
   useEffect(() => {
-    if (isEditing) {
+    if (isEditing && internship) {
       setFormData({
         internshipTitle: internship.internshipTitle,
         internshipType: internship.internshipType,
@@ -100,57 +101,61 @@ const InternshipForm = () => {
       <div className="intern-form">
         <h1>{isEditing ? 'Update Internship' : 'Add a New Internship'}</h1>
         <form className="create" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Internship Title:</label>
-            <input
-              type="text"
-              value={formData.internshipTitle}
-              onChange={(e) => setFormData({ ...formData, internshipTitle: e.target.value })}
-            />
+          <div className="form-row">
+            <div className="form-group">
+              <label>Internship Title:</label>
+              <input
+                type="text"
+                value={formData.internshipTitle}
+                onChange={(e) => setFormData({ ...formData, internshipTitle: e.target.value })}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Internship Type:</label>
+              <input
+                type="text"
+                value={formData.internshipType}
+                onChange={(e) => setFormData({ ...formData, internshipType: e.target.value })}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Internship Description:</label>
+              <textarea
+                value={formData.internshipDescription}
+                onChange={(e) => setFormData({ ...formData, internshipDescription: e.target.value })}
+              ></textarea>
+            </div>
           </div>
 
-          <div className="form-group">
-            <label>Internship Type:</label>
-            <input
-              type="text"
-              value={formData.internshipType}
-              onChange={(e) => setFormData({ ...formData, internshipType: e.target.value })}
-            />
-          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Company Name:</label>
+              <input
+                type="text"
+                value={formData.companyName}
+                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Internship Description:</label>
-            <textarea
-              value={formData.internshipDescription}
-              onChange={(e) => setFormData({ ...formData, internshipDescription: e.target.value })}
-            ></textarea>
-          </div>
+            <div className="form-group">
+              <label>Company URL:</label>
+              <input
+                type="text"
+                value={formData.companyURL}
+                onChange={(e) => setFormData({ ...formData, companyURL: e.target.value })}
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Company Name:</label>
-            <input
-              type="text"
-              value={formData.companyName}
-              onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Company URL:</label>
-            <input
-              type="text"
-              value={formData.companyURL}
-              onChange={(e) => setFormData({ ...formData, companyURL: e.target.value })}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Duration:</label>
-            <input
-              type="text"
-              value={formData.duration}
-              onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-            />
+            <div className="form-group">
+              <label>Duration:</label>
+              <input
+                type="text"
+                value={formData.duration}
+                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+              />
+            </div>
           </div>
 
           <div className="form-group">

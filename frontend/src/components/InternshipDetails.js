@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useInternshipContext } from '../hooks/InternshipContext';
-
+import InternshipForm from './InternshipForm'
 
 const InternshipDetails = () => {
   const { id } = useParams();
-  const { internship, setInternship, allInternships, setAllInternships } = useInternshipContext();
-  const [isEditing, setIsEditing] = useState(false);
+  const { internship, setInternship, allInternships, setAllInternships,isEditing,setIsEditing } = useInternshipContext();
+  console.log(isEditing)
   const [formData, setFormData] = useState({
     internshipTitle: '',
     internshipType: '',
@@ -15,6 +15,7 @@ const InternshipDetails = () => {
     companyURL: '',
     duration: '',
     branchesEligible: '',
+    // isEditing:false
   });
   const history = useHistory();
 
@@ -24,6 +25,7 @@ const InternshipDetails = () => {
         const response = await fetch('http://localhost:4444/internships');
         if (response.ok) {
           const data = await response.json();
+          console.log(data)
           setAllInternships(data.internships);
         } else {
           console.error('Failed to fetch all internships');
@@ -38,6 +40,7 @@ const InternshipDetails = () => {
     if (id) {
       const currentInternship = allInternships.find((internship) => internship._id === id);
       setInternship(currentInternship);
+      console.log(currentInternship)
       setFormData({
         internshipTitle: currentInternship.internshipTitle,
         internshipType: currentInternship.internshipType,
@@ -46,11 +49,19 @@ const InternshipDetails = () => {
         companyURL: currentInternship.companyURL,
         duration: currentInternship.duration,
         branchesEligible: currentInternship.branchesEligible.join(', '),
+        
       });
     }
   }, [id, setInternship, setAllInternships]);
+  const handleEditClick=()=>{
+    setIsEditing(true);
+    
+  }
 
   const handleUpdate = async (internshipId) => {
+    setIsEditing(true);
+    
+;
     try {
       const response = await fetch(`http://localhost:4444/internships/update-internship/${internshipId}`, {
         method: 'PATCH',
@@ -65,13 +76,15 @@ const InternshipDetails = () => {
           companyURL: formData.companyURL,
           duration: formData.duration,
           branchesEligible: formData.branchesEligible.split(',').map(branch => branch.trim()),
+          
         }),
       });
 
       if (response.ok) {
         const updatedInternship = await response.json();
-        setIsEditing(true);
-        history.push('/admin/add-internship');
+        console.log(updatedInternship)
+        
+        history.push('/admin/internpage');
         setInternship(updatedInternship);
       } else {
         console.error('Failed to update internship:', response.statusText);
@@ -109,10 +122,7 @@ const InternshipDetails = () => {
       {id && (
         <div className="internship-details">
           {isEditing ? (
-            <EditableRow
-              editFormData={formData}
-              handleUpdateClick={() => handleUpdate(internship._id)}
-            />
+            <InternshipForm isEditing={isEditing} setIsEditing={setIsEditing} initialFormData={formData} />
           ) : (
             <div>
               <h4>{internship.internshipTitle}</h4>

@@ -423,3 +423,19 @@ body {
     font-size: 3rem;
   }
 
+
+
+/* ... (existing styles) */
+
+.responsive-heading {
+  font-size: 70px;
+  text-align: center;
+  margin-bottom: -15px;
+  color: #c54e30;
+}
+
+@media (max-width: 768px) {
+  .responsive-heading {
+    font-size: 20px;
+  }
+}

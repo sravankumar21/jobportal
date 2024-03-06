@@ -9,6 +9,9 @@ import connectDB from './config/db.mjs';
 import adminRouter from './routers/adminRoutes.mjs';
 import internshipRouter from './routers/internshipRoutes.mjs';
 import jobRouter from './routers/jobRoutes.mjs';
+import skillDevelopmentRouter from './routers/skillDevelopmentRoutes.mjs';
+
+// import skillsRouter from './routers/skillsRoutes.mjs';
 
 dotenv.config();
 
@@ -28,6 +31,8 @@ app.use(adminpassport.initialize());
 app.use('/admins', adminRouter);
 app.use('/jobs', jobRouter);
 app.use('/internships', internshipRouter);
+
+app.use('/skill-development', skillDevelopmentRouter);
 
 connectDB();
 

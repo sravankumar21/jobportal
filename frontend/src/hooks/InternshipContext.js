@@ -6,12 +6,15 @@ const InternshipContext = createContext();
 export const InternshipProvider = ({ children }) => {
   const [allInternships, setAllInternships] = useState([]);
   const [internship, setInternship] = useState(null);
+  const [isEditing,setIsEditing]=useState(false)
 
   const contextValue = {
     allInternships,
     setAllInternships,
     internship,
     setInternship,
+    isEditing,
+    setIsEditing
   };
 
   return (

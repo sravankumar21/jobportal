@@ -9,7 +9,9 @@ ReactDOM.render(
   <React.StrictMode>
     <InternshipProvider>
       <JobProvider>
-        <App />
+        
+          <App />
+        
       </JobProvider>
     </InternshipProvider>
   </React.StrictMode>,

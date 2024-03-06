@@ -1,4 +1,3 @@
-// JobDetails.js
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useJobContext } from '../hooks/JobContext'; // Update the path

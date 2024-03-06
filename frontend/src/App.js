@@ -15,6 +15,8 @@ import InternPage from './components/InternPage';
 import StudentInternshipDetails from './components/Studentintdetails';
 import StudentJobDetails from './components/studentjobdetails';
 import Roadmaps from './components/Roadmaps';
+import SkillsPage from './components/SkillDevelopmentForm';
+import Coursedetails from './components/StudentCourseDetails';
 
 
 function App() {
@@ -26,15 +28,17 @@ function App() {
           <Route path="/admin/dashboard" component={AdminDashboard} />
           <Route path="/student/dashboard" component={StudentDashboard} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/resumebuilder" component={ResumeBuilder} />
+          <Route path="/resumebuilder" component={ResumeBuilder} />               
           <Route path="/student/roadmap" component={Roadmaps} />
           <Route path="/admin/add-user" component={UserForm} />
           <Route path="/admin/add-internship" component={AddInternship} />
           <Route path="/admin/add-job" component={AddJob} />
           <Route path="/admin/jobpage" component={JobPage} />
           <Route path="/admin/internpage" component={InternPage} />
+          <Route path="/admin/skillspage" component={SkillsPage} />
           <Route exact path="/student/studentinternpage" component={StudentInternshipDetails} />
           <Route exact path="/student/studentjobpage" component={StudentJobDetails} />
+          <Route exact path="/student/skillspage" component={Coursedetails} />
         </Switch>
       </Router>
   );

@@ -753,6 +753,7 @@ body {
 /* Additional styles for the search bar container (adjust as needed) */
 .search-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }

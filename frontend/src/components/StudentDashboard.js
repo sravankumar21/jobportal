@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../otherstyles/student.css';
 
 const StudentDashboard = () => {
-
   return (
     <div>
       <header className="headers">
@@ -13,36 +12,53 @@ const StudentDashboard = () => {
         <div>
           <ul>
             <li>
-              <a href="#home">Home</a>
+              <Link to="/student/dashboard">Home</Link>
             </li>
             <li>
-              <Link to="/student/roadmap">Roadmaps</Link>
+              <Link to="/student/profile">Your Profile</Link>
             </li>
             <li>
-              <Link to="/student/studentinternpage">View Internships</Link>
+              <Link to="/student/RegisteredCourses">Registered Courses</Link>
             </li>
             <li>
-              <Link to="/student/studentjobpage">View Jobs</Link>
+              <Link to="/student/Skills">Skills</Link>
             </li>
             <li>
-              <Link to="/">Logout</Link>
+              <Link to="/logout">Logout</Link>
             </li>
           </ul>
         </div>
       </header>
-      <section className="homes" id="homes">
-        <div className="wrapper">
-          <div className="box">
-            <div className="contents">
-              <h3>WELCOME STUDENT!</h3>
-              <p>
-                "Welcome to the Student Dashboard of Career Opportunities. Explore and plan your academic journey with the CBIT Placement Cell."
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
+      
+      {/* Cards section */}
+      <div className="cards">
+        
+        <div className="card">
+          <h4>View Roadmaps</h4>
+          <p>Explore and manage your academic roadmaps.</p>
+          <Link to="/student/roadmap">Explore Roadmaps</Link>
+        </div>
+
+        <div className="card">
+          <h4>View Internships</h4>
+          <p>View and apply for available internships.</p>
+          <Link to="/student/studentinternpage">View Internships</Link>
+        </div>
+
+        <div className="card">
+          <h4>View Jobs</h4>
+          <p>Explore and apply for available job opportunities.</p>
+          <Link to="/student/studentjobpage">View Jobs</Link>
+        </div>
+
+        <div className="card">
+          <h4>Build your Skills</h4>
+          <p>Go,find a course and learn it.</p>
+          <Link to="/student/skillspage">View Profile</Link>
+        </div>
+
+      </div>
     </div>
   );
 };
